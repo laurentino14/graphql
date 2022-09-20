@@ -2,14 +2,46 @@
 
 package model
 
+type Course struct {
+	ID          string        `json:"id"`
+	Title       string        `json:"title"`
+	Slug        string        `json:"slug"`
+	Description *string       `json:"description"`
+	CreatedAt   string        `json:"created_at"`
+	UpdatedAt   *string       `json:"updated_at"`
+	AuthorID    string        `json:"author_id"`
+	Author      []*User       `json:"author"`
+	Enrollments []*Enrollment `json:"enrollments"`
+}
+
+type Enrollment struct {
+	ID       string    `json:"id"`
+	UserID   string    `json:"user_id"`
+	CourseID string    `json:"course_id"`
+	User     []*User   `json:"user"`
+	Course   []*Course `json:"course"`
+}
+
 type NewUser struct {
-	ID       int    `json:"id"`
-	Name     string `json:"name"`
-	Lastname string `json:"lastname"`
+	ID        string  `json:"id"`
+	Firstname string  `json:"firstname"`
+	Lastname  string  `json:"lastname"`
+	Email     string  `json:"email"`
+	Password  string  `json:"password"`
+	Cellphone string  `json:"cellphone"`
+	BirthDate *string `json:"birth_date"`
+	TokenUser *string `json:"token_user"`
 }
 
 type User struct {
-	ID       int    `json:"id"`
-	Name     string `json:"name"`
-	Lastname string `json:"lastname"`
+	ID          string        `json:"id"`
+	Firstname   string        `json:"firstname"`
+	Lastname    string        `json:"lastname"`
+	Email       string        `json:"email"`
+	Password    string        `json:"password"`
+	Cellphone   string        `json:"cellphone"`
+	BirthDate   *string       `json:"birth_date"`
+	TokenUser   *string       `json:"token_user"`
+	AuthorOf    []*Course     `json:"author_of"`
+	Enrollments []*Enrollment `json:"enrollments"`
 }

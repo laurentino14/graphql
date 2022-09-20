@@ -2,22 +2,55 @@
 #
 # https://gqlgen.com/getting-started/
 
-
-
 type User {
-  id: Int!
-  name: String!
+  id: String!
+  firstname: String!
   lastname: String!
+  email: String!
+  password: String!
+  cellphone: String!
+  birth_date: String
+  token_user: String
+  author_of: [Course]
+  enrollments: [Enrollment]
 }
+
+type Course {
+  id: String!
+  title: String!
+  slug: String!
+  description: String
+  created_at: String!
+  updated_at: String
+  author_id: String!
+  author: [User!]!
+  enrollments: [Enrollment]
+}
+
+type Enrollment {
+  id: String!
+  user_id: String!
+  course_id: String!
+  
+  user: [User!]!
+  course: [Course!]!
+}
+
+
 
 type Query {
   users: [User]
 }
 
-input NewUser {
-  id: Int!
-  name: String!
+input NewUser{
+  id: String!
+  firstname: String!
   lastname: String!
+  email: String!
+  password: String!
+  cellphone: String!
+  birth_date: String
+  token_user: String
 }
 
 type Mutation {
