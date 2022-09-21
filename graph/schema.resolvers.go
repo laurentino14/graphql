@@ -5,6 +5,7 @@ package graph
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/laurentino14/graphql/graph/generated"
 	"github.com/laurentino14/graphql/graph/model"
@@ -31,7 +32,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 		client.User.Cellphone.Set(input.Cellphone),
 		client.User.BirthDate.Set(*input.BirthDate),
 		client.User.Tokenuser.Set(*input.TokenUser),
-		client.User.ID.Set(input.ID),
+		client.User.ID.Set(*input.ID),
 	).Exec(ctx)
 	if err != nil {
 		return nil, err
@@ -39,26 +40,13 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 	user := &model.User{ID: req.ID,
 		Firstname:   req.Firstname,
 		Lastname:    req.Lastname,
-		Password:    "Criptografado",
+		Password:    "***********",
 		Email:       req.Email,
 		Cellphone:   req.Cellphone,
 		BirthDate:   &req.BirthDate,
 		TokenUser:   &req.Tokenuser,
 		AuthorOf:    []*model.Course{},
 		Enrollments: []*model.Enrollment{}}
-
-	// for _, user := range req {
-	// 	user = append(user, &model.User{ID: user.ID,
-	// 		Firstname:   user.Firstname,
-	// 		Lastname:    user.Lastname,
-	// 		Password:    "Criptografado",
-	// 		Email:       user.Email,
-	// 		Cellphone:   user.Cellphone,
-	// 		BirthDate:   &user.BirthDate,
-	// 		TokenUser:   &user.Tokenuser,
-	// 		AuthorOf:    []*model.Course{},
-	// 		Enrollments: []*model.Enrollment{}})
-	// }
 	return user, err
 }
 
@@ -85,7 +73,7 @@ func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
 			ID:          user.ID,
 			Firstname:   user.Firstname,
 			Lastname:    user.Lastname,
-			Password:    "Criptografado",
+			Password:    "***********",
 			Email:       user.Email,
 			Cellphone:   user.Cellphone,
 			BirthDate:   &user.BirthDate,
@@ -96,6 +84,26 @@ func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
 	}
 
 	return users, nil
+}
+
+// Courses is the resolver for the courses field.
+func (r *queryResolver) Courses(ctx context.Context) ([]*model.Course, error) {
+	panic(fmt.Errorf("not implemented: Courses - courses"))
+}
+
+// Modules is the resolver for the modules field.
+func (r *queryResolver) Modules(ctx context.Context) ([]*model.Module, error) {
+	panic(fmt.Errorf("not implemented: Modules - modules"))
+}
+
+// Lessons is the resolver for the lessons field.
+func (r *queryResolver) Lessons(ctx context.Context) ([]*model.Lesson, error) {
+	panic(fmt.Errorf("not implemented: Lessons - lessons"))
+}
+
+// Enrollments is the resolver for the enrollments field.
+func (r *queryResolver) Enrollments(ctx context.Context) ([]*model.Enrollment, error) {
+	panic(fmt.Errorf("not implemented: Enrollments - enrollments"))
 }
 
 // Mutation returns generated.MutationResolver implementation.

@@ -42,6 +42,8 @@ model Course {
   author_id String
 
   enrollments Enrollment[]
+  Module      Module[]
+  Lesson      Lesson[]
 
   @@map("courses")
 }
@@ -56,4 +58,27 @@ model Enrollment {
   courseId String
 
   @@map("enrollments")
+}
+
+model Module {
+  id String @id @default(uuid())
+
+  title       String
+  description String
+  slug        String   @unique
+  lessons     Lesson[]
+  course      Course   @relation(fields: [courseId], references: [id])
+  courseId    String
+}
+
+model Lesson {
+  id     String @id @default(uuid())
+  title  String
+  slug   String @unique
+  link   String @unique
+  module Module @relation(fields: [moduleId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+
+  moduleId String
+  courseId String
 }
